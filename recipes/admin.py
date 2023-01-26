@@ -6,12 +6,15 @@ from .models import *
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description', 'save_count', 'get_title']
+    list_display = ['id', 'title', 'description', 'save_count', 'get_title']
     list_display_links = ['title', 'description', 'save_count', 'get_title']
 
     @admin.display(ordering='theme__title', description='Theme')
     def get_title(self, obj):
-        return obj.theme.title
+        if obj.theme is not None:
+            return obj.theme.title
+        else:
+            return None
 
 
 @admin.register(RequiredIngredient)

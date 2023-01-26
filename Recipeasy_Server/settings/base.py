@@ -30,7 +30,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['recipeasy.link', '127.0.0.1', '3.35.14.95', '172.31.10.111']
+
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -48,13 +50,16 @@ INSTALLED_APPS = [
     'user',
     'recipes',
     'mypages',
+    'measure',
     'rest_framework_simplejwt.token_blacklist',
-    'corsheaders'
+    'corsheaders',
+    'health_check',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     )
 }
 
@@ -91,6 +96,12 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = ['https://*.recipeasy.link', 'https://recipeasy.link']
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
