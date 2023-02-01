@@ -38,7 +38,8 @@ class RecipeDetailView(APIView):
     def get(self, request, pk):
         recipe = get_object_or_404(Recipe, pk=pk)
         serializer = RecipeDetailSerializer(recipe)
-        return Response({'message': '레시피 상세 조회 성공', 'data': serializer.data}, status=HTTP_200_OK)
+
+        return Response({'message': '레시피 상세 조회 성공', 'data': serializer.data, 'theme': recipe.theme.title, 'theme_id': recipe.theme.id}, status=HTTP_200_OK)
 
 
 class RecipeSearchView(ListAPIView):
